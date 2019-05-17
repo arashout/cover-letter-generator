@@ -1,0 +1,17 @@
+blurbs:
+    -   name: "intro"
+        precendence: 255,
+        trigger_tokens: []
+        longDescription: >- 
+            "Hey I'm Ash,
+            I'm a new grad from UBC with a years experience working as a software engineer at Ravelin.
+            My resume already outlines my general technical accomplishments at the places I've worked
+            but I would like to expand on the projects I've worked on that make a great fit at {COMPANY}!"
+    -   name: "intro"
+        precendence: 255,
+        trigger_tokens: []
+        longDescription: >- 
+            "Hey I'm Ash,
+            I'm a new grad from UBC with a years experience working as a software engineer at Ravelin.
+            My resume already outlines my general technical accomplishments at the places I've worked
+            but I would like to expand on the projects I've worked on that make a great fit at {COMPANY}!"

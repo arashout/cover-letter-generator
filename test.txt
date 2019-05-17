@@ -1,0 +1,55 @@
+Job Description
+
+SUMMARY:
+
+The Back-End Software Engineer works within the DDS IQ Development Team. They will Node.js technology to build attractive, performant and intuitive stateless services exposed with RESTful APIs and deployed in cloud environment using the latest infrastructure capabilities. They will help ensure our next generation services are built to scale and meet the requirement of our Transit and Taxi customers.
+
+DUTIES AND RESPONSIBILITIES:
+
+    Building services/micro-services exposing RESTful API’s in JavaScript.
+    Experience in writing applications using the Node.js framework.
+    Writing API based software which integrate into new and legacy products.
+    Searching for, investigating, reporting, and fixing software defects.
+    Performing unit testing on written software.
+    Documenting and reporting software defects, using a bug tracking system (JIRA).
+    Installing and configuring service in AWS as lambda functions or Docker EC2 instances).
+    Creating deployment instructions. Deploying software into testing and staging environments.
+    Participating on an agile team and reporting daily development effort.
+    Collaborating with developers and product managers to deliver on requirements planned for each well-defined sprints.
+    Collaborating with product managers and the engineering team to improve requirements and define acceptance criteria.
+
+QUALIFICATIONS:
+
+    Bachelor’s Degree in Computer Science, Computer Engineering or Software Engineering. Master’s degree is a plus.
+    Experience in the following technologies:
+    3 years: Javascript, Node.js development experience
+    3 years: Writing RESTFul APIs that stateless and scalable
+    3 years: Software Development tools based on Atlassian Jira and Agile methods
+    2 years along with a broad knowledge of Node.js and the JavaScript ecosystem
+    2 years: Multi-Threading and memory management specific to mobile devices.
+    2 years: Experience in building and leading engineering teams.
+    Experience in building and managing product backlogs.
+    An understanding of the need for encapsulated UI code.
+    Proficient understanding of code versioning tools, such as Git and GitHub.
+    Disciplined approach to writing and quality assurance.
+    Understanding of core CS concepts such as: common data structures and algorithms, profiling/optimization.
+    Excellent documentation, communication, and technical writing skills required.
+    Ability to work well with Product Management teams
+    Ability to work well with others - teamwork, cooperation, respect, and integrity, and excellent communication.
+    Ability to logically document and solve problems and to keep projects moving.
+    Must be a self-motivated, organized and strong communicator.
+    Strong analytical and problem-solving skills.
+    Accurately complete detailed forms and reports.
+    Coordinate multiple tasks simultaneously.
+    Understand and respond to a diverse population.
+    Demonstrated commitment to confidentiality.
+
+You are a team player that enjoys a challenge and has excellent communication skills. If you are excited about the variety, challenge and scope of this role as well as about the opportunity to advance your career within the DDS group of companies, we want to hear from you.
+
+DDS Wireless offers a competitive salary and comprehensive benefits package, combined with variety, challenge and scope to develop your career.
+
+To apply please attach your resume together with a cover letter. Please reference “Back-End Software Engineer– Richmond, BC – Your Name” in the subject line.
+
+We thank all who apply, however, we will only be in contact with those considered for an interview. No phone calls, please.
+
+Job Type: Full-time
