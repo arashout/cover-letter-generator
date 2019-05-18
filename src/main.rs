@@ -126,7 +126,6 @@ mod test {
 fn main() {
     // Get command-line arguments to determine which mode to operate in
     let args: Vec<String> = env::args().collect();
-    println!("{:?}", args);
     if args.len() != 2 {
         println!("message-generator -m  == generate message for description\nmessage-generator -s == score the job description for suitablity");
         std::process::exit(-1);
