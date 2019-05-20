@@ -8,29 +8,16 @@ use crate::types::{BlurbVec, KeywordBlurb, KeywordGroup};
 mod config;
 use crate::config::{BLURBS, KEYWORDS_GROUP_MAP};
 
-// Used in config
+mod utils;
+use crate::utils::{hashset, tokenize};
+
+// Used in config, utils
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]
 extern crate maplit;
 
-// TODO: How do I avoid owned "String", I want to &str with same lifetime as "text"
-fn tokenize(text: &str) -> Vec<String> {
-    // TODO: Stem? for better matches?
-    text
-        .to_lowercase()
-        .split_whitespace()
-        .map(|s: &str| s.to_owned())
-        .collect()
-}
-
-// TODO: Is it possible to extend Vec methods?
-fn contains<T>(v: &Vec<T>, needle: &T) -> bool
-where
-    T: PartialEq,
-{
-    v.iter().fold(false, |acc, item| acc || item == needle)
-}
+extern crate earth;
 
 fn calculate_job_score(description: &String, keywords_groups: &HashMap<&str, KeywordGroup>) -> i32 {
     let tokenized_description = tokenize(description);
@@ -41,7 +28,7 @@ fn calculate_job_score(description: &String, keywords_groups: &HashMap<&str, Key
         // TODO: Make any_contains helper
         for trigger_token in keyword_group.trigger_tokens.iter() {
             // Check if the keyword_token is equal to any of the tokens from the description
-            if contains(&tokenized_description, &(**trigger_token).to_owned() ) {
+            if tokenized_description.contains(*trigger_token) {
                 score += keyword_group.score;
                 break;
             }
@@ -60,12 +47,13 @@ fn generate_message<'a>(description: &String, blurbs: &BlurbVec<'a>) -> String {
             .long_description
     ));
     let tokenized_description = tokenize(description);
+    print!("{:?}", tokenized_description);
     for i in 1..blurbs.len() - 1 {
         let blurb: &KeywordBlurb = blurbs
             .get(i)
             .expect(&format!("Expected blurb at index: {}", i));
         for trigger_token in blurb.trigger_tokens.iter() {
-            if contains(&tokenized_description, &(**trigger_token).to_owned()) {
+            if tokenized_description.contains(*trigger_token) {
                 message.push_str(&format!("-{}\n", blurb.long_description));
                 break;
             }
@@ -136,7 +124,6 @@ fn main() {
         .read_to_string(&mut description)
         .expect("Could not read from stdin");
 
-    // TODO: Probably should unwrap in here, using option
     match args.get(1) {
         None => {
             println!("No argument provided!");
