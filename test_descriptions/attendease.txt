@@ -1,0 +1,32 @@
+
+
+The Attendease delivery team is focused on using the Attendease platform to deliver beautiful event websites, mobile apps and integrations for our clients' events.
+
+Here is what you'll have the opportunity to do:
+- Build awesome enterprise-level websites for world-recognized brands using the Attendease platform.
+- Flex your HMTL/CSS/Javascript muscles to turn beautiful mockups into feature-rich, responsive, stunning web applications.
+- Code new features for the Attendease platform, writing clean, efficient code... and have fun doing it!
+- Work alongside other developers and a cross disciplinary team of sales, marketing, project managers and leadership.
+- Support integrations between the various systems needed to run client sites using Attendease, and integrating with other data sources / platforms.
+- Help conduct QA and work alongside the Customer Success team by triaging platform issues on current projects.
+﻿
+Here is what we think you should bring to the table to be successful:
+- 3+ years front-end web development experience with our tech stack. You're a pro with HTML5 and CSS3.
+- An online portfolio of past projects, websites, web apps, mobile apps, and whatever else you're proud of.
+- Bachelor's Degree in Computer Science or similar, or you’re a really good problem solver.
+- Experience with React.js is a very strong nice-to-have.
+- You’re all about Agile methodologies.
+- Cross-disciplinary experience where you have worked with Designers, Project Managers, Product Marketers and a Leadership team.
+- You’ll be internally and externally facing so strong communication skills are a must - both written and verbal.
+
+Your awesomeness includes:
+- A positive, proactive, “get it done” attitude with great task organization skills.
+- A sense of humour! Bad puns are encouraged.
+- Great communication & presentation abilities for client engagements.
+- The desire to be a part of a vibrant and energetic company culture that promotes hard work while having fun doing it! You’re not afraid to grab a beverage with a co-worker.
+
+You’ll get:
+Competitive compensation package including extended medical, dental, MSP, paid time off, great team, amazing clients like Adobe and Hilton, and the opportunity to have real impact on the support and reliability of event and conference experiences globally.
+
+Our technology stack includes:
+HTML5, Javascript/ES6/CoffeeScript, CSS; Front-end frameworks like Bootstrap; Site generating tools like Jekyll; Javascript frameworks like Backbone/React, Node.js; Mobile dev tools like Cordova/PhoneGap; JavaScript bundling tools like Webpack, Gulp, Sprockets; Design tools like Sketch, InVision, Photoshop and Illustrator; Git/GitHub; and Amazon Web Services (AWS). Our platform is built in Ruby/Rails on PostgreSQL and Redis and is hosted on Unix/Linux/FreeBSD systems.
