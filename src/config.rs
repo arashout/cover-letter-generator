@@ -7,9 +7,10 @@ lazy_static! {
         let m = hashmap! {
         "frontend" => KeywordGroup{ score: 3, trigger_tokens: vec!["react", "reactjs", "angular", "angularjs", "vue"]},
         "favourite_languages" => KeywordGroup {score: 5, trigger_tokens: vec!["rust", "typescript"]},
-        "dotnet" => KeywordGroup{ score: 4, trigger_tokens: vec!["c#", ".net"]},
+        "dotnet" => KeywordGroup{ score: 4, trigger_tokens: vec!["c#", "net", "dotnet"]},
         "rust" => KeywordGroup{ score: 5, trigger_tokens: vec!["rust"]},
         "golang" => KeywordGroup{ score: 2, trigger_tokens: vec!["golang"]},
+        "microservices" => KeywordGroup{ score: 3, trigger_tokens: vec!["microservices"]},
         "python" => KeywordGroup{ score: 5, trigger_tokens: vec!["python", "flask"]}
         };
         m
@@ -20,22 +21,23 @@ lazy_static! {
 lazy_static! {
     pub static ref BLURBS: BlurbVec<'static> = {
         let mut v = Vec::new();
+        // TODO: Code for replacing company and position
         v.push(
             KeywordBlurb{
                 name: "intro",
                 precendence: 255,
                 trigger_tokens: vec![],
                 long_description: "Hey I'm Ash,\
-                \nI'm a new grad from UBC with a years experience working as a software engineer at Ravelin.\
-                \nMy resume already outlines my general technical accomplishments at the places I've worked \
-                but I would like to expand on the projects I've worked on that make a great fit at {COMPANY}!"
+                \nA new grad from UBC with a years experience working as a software engineer building APIs and client facing dashboards.\
+                \nI would be super excited to work at {COMPANY} as a {POSITON}, here are a couple reasons why I think I would be a good fit:"
             });
         v.push(
             KeywordBlurb{
                 name: "typescript",
                 precendence: 9,
-                trigger_tokens: vec!["typescript"],
-                long_description: "TypeScript has made developing in the JavaScript ecosystem a pleasure"
+                trigger_tokens: vec!["angular", "angularjs", "typescript"],
+                long_description: "I have had the pleasure of building Ravelin's customer facing dashboard using AngularJS and TypeScript for year.
+                TypeScript is one of my favorite languages as it has made working with large complex JavaScript applications much more ergonomic!"
             }
         );
         v.push(
@@ -43,9 +45,19 @@ lazy_static! {
                 name: "react",
                 precendence: 9,
                 trigger_tokens: vec!["react", "reactjs", "typescript"],
-                long_description:  "I built a card matching game using React+TypeScript to help my grandma \
-                learn the sounds of the English alphabet in fun way. \
-                \nSource: https://arashout.github.io/alphabet-match/"
+                long_description:  "During my time at Ravelin, built chrome extension using React+TypeScript for prospecting clients that they \
+                use everyday. This was a side project, that I did not expect to get much use but mainly did as a favor for co-worker, funny \
+                how small things can be large value adds.\nUsing the same tech stack I built my grandma a card matching game for learning the \
+                sounds of the English alphabet. Check it out: https://arashout.github.io/alphabet-match/"
+            }
+        );
+        v.push(
+            KeywordBlurb{
+                name: "micro-go",
+                precendence: 9,
+                trigger_tokens: vec!["golang", "microservices"],
+                long_description: "Familiar with the microservices archeticture and associated technologies like Docker since \
+                at Ravelin built and tested new API endpoints and backend functionality with Go."
             }
         );
         v.push(
@@ -71,8 +83,16 @@ lazy_static! {
                 name: "vis",
                 precendence: 9,
                 trigger_tokens: vec!["visualization", "graph", "algorithms"],
-                long_description: "Built efficient and useful graph visualization for the Ravelin connect product using D3.js. 
-                This involved writing some graph traversal and nearest neighbor search algorithms."
+                long_description: "I worked extensively on the Ravelin Connect product, which involved building graph visualizations using \
+                D3.js and implementing algorithms for efficient graph processing."
+            }
+        );
+        v.push(
+            KeywordBlurb{
+                name: "linux",
+                precendence: 4,
+                trigger_tokens: vec!["linux", "unix"],
+                long_description: "I use Ubuntu as my daily driver so proficiency in a linux environment is not a problem."
             }
         );
         v.push(
