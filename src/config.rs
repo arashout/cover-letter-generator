@@ -28,7 +28,7 @@ lazy_static! {
                 precendence: 255,
                 trigger_tokens: vec![],
                 long_description: "Hey I'm Ash,\
-                \nA new grad from UBC with a years experience working as a software engineer building APIs and client facing dashboards.\
+                \nA new grad from UBC with experience working as a software engineer building APIs and client facing dashboards.\
                 \nI would be super excited to work at {COMPANY} as a {POSITON}, here are a couple reasons why I think I would be a good fit:"
             });
         v.push(

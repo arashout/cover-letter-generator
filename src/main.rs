@@ -1,15 +1,17 @@
 use std::collections::HashMap;
-use std::env;
 use std::io::{stdin, Read};
 
 mod types;
-use crate::types::{BlurbVec, KeywordBlurb, KeywordGroup};
+use crate::types::{KeywordGroup};
 
 mod config;
 use crate::config::{BLURBS, KEYWORDS_GROUP_MAP};
 
 mod utils;
 use crate::utils::{hashset, tokenize};
+
+mod message;
+use crate::message::generate_message;
 
 // Used in config, utils
 #[macro_use]
@@ -19,8 +21,17 @@ extern crate maplit;
 
 extern crate earth;
 
-fn calculate_job_score(description: &String, keywords_groups: &HashMap<&str, KeywordGroup>) -> i32 {
+use clap::{App, Arg};
+
+fn calculate_job_score(
+    description: &String,
+    keywords_groups: &HashMap<&str, KeywordGroup>,
+    debug_flag: bool,
+) -> i32 {
     let tokenized_description = tokenize(description);
+    if debug_flag {
+        println!("{:?}", tokenized_description);
+    }
     // TODO: Why doesn't this work???
     // let tokenized_description: Vec<&str> = description.to_lowercase().split_whitespace().collect();
     let mut score = 0;
@@ -37,37 +48,6 @@ fn calculate_job_score(description: &String, keywords_groups: &HashMap<&str, Key
     score
 }
 
-fn generate_message<'a>(description: &String, blurbs: &BlurbVec<'a>) -> String {
-    let mut message = String::new();
-    message.push_str(&format!(
-        "{}\n\n",
-        blurbs
-            .get(0)
-            .expect("Expected intro blurb")
-            .long_description
-    ));
-    let tokenized_description = tokenize(description);
-    print!("{:?}", tokenized_description);
-    for i in 1..blurbs.len() - 1 {
-        let blurb: &KeywordBlurb = blurbs
-            .get(i)
-            .expect(&format!("Expected blurb at index: {}", i));
-        for trigger_token in blurb.trigger_tokens.iter() {
-            if tokenized_description.contains(*trigger_token) {
-                message.push_str(&format!("-{}\n", blurb.long_description));
-                break;
-            }
-        }
-    }
-    message.push_str(&format!(
-        "\n{}",
-        blurbs
-            .get(blurbs.len()-1)
-            .expect("Expected outro blurb")
-            .long_description
-    ));
-    message
-}
 
 // NOTE: cfg is telling it whether to compile or not
 #[cfg(test)]
@@ -79,6 +59,7 @@ mod test {
         let score = calculate_job_score(
             &"javascripts typescripts".to_owned(),
             &hashmap!["frontend" => KeywordGroup{ score: 5, trigger_tokens: vec!["react"]}],
+            false,
         );
         assert!(
             score == 0,
@@ -87,6 +68,7 @@ mod test {
         let score = calculate_job_score(
             &"javascript typescripts".to_owned(),
             &hashmap!["frontend" => KeywordGroup{ score: 5, trigger_tokens: vec!["javascript", "typescript"]}],
+            false,
         );
         assert!(
             score == 5,
@@ -98,11 +80,13 @@ mod test {
                 "frontend" => KeywordGroup{ score: 3, trigger_tokens: vec!["react"]},
                 "backend" => KeywordGroup{ score: 5, trigger_tokens: vec!["java"]},
             ],
+            false,
         );
         assert!(score == 3, "Score should be 3 since java !== javascript");
         let score = calculate_job_score(
             &"javascripts typescripts".to_owned(),
             &hashmap!["frontend" => KeywordGroup{ score: 5, trigger_tokens: vec!["javascript", "typescript"]}],
+            false,
         );
         assert!(
             score == 0,
@@ -112,30 +96,61 @@ mod test {
 }
 
 fn main() {
-    // Get command-line arguments to determine which mode to operate in
-    let args: Vec<String> = env::args().collect();
-    if args.len() != 2 {
-        println!("message-generator -m  == generate message for description\nmessage-generator -s == score the job description for suitablity");
-        std::process::exit(-1);
-    }
+    let matches = App::new("cv-generator")
+        .version("1.0")
+        .author("Arash Outadi <arash.out@gmail.com")
+        .arg(
+            Arg::with_name("message")
+                .short("m")
+                .long("message")
+                .help(
+                    "Generates a message from job description, company name and position name\n\
+                     Usage:\n\
+                     cv-generator -m -c=COMPANY -p=POSITON\n\
+                     And the job description is passed through standard input",
+                )
+                .conflicts_with("score")
+                .conflicts_with("resume")
+                .requires("company")
+                .requires("position")
+                .takes_value(false),
+        )
+        .arg(Arg::with_name("score").short("s").long("score").help(
+            "Calculates a score based off of the job description\n\
+             Usage:\n\
+             cv-generator -s\n\
+             And the job description is passed through standard input",
+        ))
+        .arg(Arg::with_name("resume").short("r").long("resume").help(
+            "Recommends a resume based off the job description\n\
+             Usage:\n\
+             cv-generator -r \n\
+             And the job description is passed through standard input",
+        ))
+        .arg(Arg::with_name("company").short("c").long("company").help("the company name").takes_value(true))
+        .arg(Arg::with_name("position").short("p").long("position").help("the position name").takes_value(true))
+        .arg(
+            Arg::with_name("debug")
+                .short("d")
+                .long("debug")
+                .help("Extra messages printed out for debugging"),
+        )
+        .get_matches();
+
     // Get description from stdin used to either score or generate a message
     let mut description = String::new();
     stdin()
         .read_to_string(&mut description)
         .expect("Could not read from stdin");
 
-    match args.get(1) {
-        None => {
-            println!("No argument provided!");
-        }
-        Some(mode) => {
-            if *mode == "-m".to_owned() {
-                let message = generate_message(&description, &BLURBS);
-                println!("{}", message);
-            } else if *mode == "-s".to_owned() {
-                let score = calculate_job_score(&description, &KEYWORDS_GROUP_MAP);
-                println!("{}", score);
-            }
-        }
+    let debug_flag = matches.is_present("debug");
+    if matches.is_present("message") {
+        let message = generate_message(&description, &BLURBS, matches.value_of("company").unwrap(), matches.value_of("position").unwrap(), debug_flag);
+        println!("{}", message);
+    } else if matches.is_present("score") {
+        let score = calculate_job_score(&description, &KEYWORDS_GROUP_MAP, debug_flag);
+        println!("{}", score);
+    } else if matches.is_present("resume") {
+        unimplemented!();
     }
 }
