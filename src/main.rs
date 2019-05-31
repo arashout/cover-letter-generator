@@ -8,7 +8,7 @@ mod config;
 use crate::config::{BLURBS, KEYWORDS_GROUP_MAP};
 
 mod utils;
-use crate::utils::{hashset, tokenize};
+use crate::utils::{tokenize};
 
 mod message;
 use crate::message::generate_message;
@@ -34,8 +34,6 @@ fn calculate_job_score(
     if debug_flag {
         println!("{:?}", tokenized_description);
     }
-    // TODO: Why doesn't this work???
-    // let tokenized_description: Vec<&str> = description.to_lowercase().split_whitespace().collect();
     let mut score = 0;
     for (_, keyword_group) in keywords_groups.iter() {
         // TODO: Make any_contains helper
