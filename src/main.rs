@@ -13,6 +13,8 @@ use crate::utils::{hashset, tokenize};
 mod message;
 use crate::message::generate_message;
 
+mod rules;
+
 // Used in config, utils
 #[macro_use]
 extern crate lazy_static;

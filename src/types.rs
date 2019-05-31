@@ -1,25 +1,33 @@
+use std::collections::HashSet;
+
+use crate::rules::Rule;
+
+pub type TokenizedDescription = HashSet<String>;
+
 #[derive(Debug)]
 pub struct KeywordGroup<'a> {
     pub score: i32,
     pub trigger_tokens: Vec<&'a str>,
 }
 #[derive(Debug, Default)]
-pub struct KeywordBlurb<'a> {
+pub struct Blurb<'a> {
     pub precendence: u8,
     pub long_description: &'a str,
     pub short_description: &'a str,
     pub trigger_tokens: Vec<&'a str>,
     pub name: &'a str,
+    pub rules: Vec<Rule>
 }
 
-impl<'a> KeywordBlurb<'a> {
+impl<'a> Blurb<'a> {
     pub fn new(name: &'a str) -> Self {
-        KeywordBlurb {
+        Blurb {
             name: name,
             precendence: 10,
             long_description: &"",
             short_description: &"",
             trigger_tokens: vec![],
+            rules: vec![]
         }
     }
     
@@ -42,10 +50,13 @@ impl<'a> KeywordBlurb<'a> {
         self.long_description = description;
         self
     }
+    pub fn add_rule(mut self, rule: Rule){
+        
+    }
 
     // TODO: Add rules
 }
-pub type BlurbVec<'a> = Vec<KeywordBlurb<'a>>;
+pub type BlurbVec<'a> = Vec<Blurb<'a>>;
 
 // TODO: Use this instead of passing arguments to message
 pub struct Config {

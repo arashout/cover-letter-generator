@@ -1,4 +1,4 @@
-use crate::types::{KeywordBlurb, BlurbVec};
+use crate::types::{Blurb, BlurbVec};
 use crate::utils::{tokenize};
 
 pub fn generate_message<'a>(description: &String, blurbs: &BlurbVec<'a>, company: &str, position: &str, debug_flag: bool) -> String {
@@ -15,7 +15,7 @@ pub fn generate_message<'a>(description: &String, blurbs: &BlurbVec<'a>, company
         println!("{:?}", tokenized_description);
     }
     for i in 1..blurbs.len() - 1 {
-        let blurb: &KeywordBlurb = blurbs
+        let blurb: &Blurb = blurbs
             .get(i)
             .expect(&format!("Expected blurb at index: {}", i));
         for trigger_token in blurb.trigger_tokens.iter() {
