@@ -1,7 +1,9 @@
-use crate::types::{Blurb, BlurbVec};
+use crate::types::{Blurb, Config};
 use crate::utils::{tokenize};
+use crate::config::{get_blurbs};
 
-pub fn generate_message<'a>(description: &String, blurbs: &BlurbVec<'a>, company: &str, position: &str, debug_flag: bool) -> String {
+pub fn generate_message(description: &String, config: &Config) -> String {
+    let blurbs = get_blurbs();
     let mut message = String::new();
     message.push_str(&format!(
         "{}\n\n",
@@ -11,7 +13,7 @@ pub fn generate_message<'a>(description: &String, blurbs: &BlurbVec<'a>, company
             .long_description
     ));
     let tokenized_description = tokenize(description);
-    if debug_flag {
+    if config.debug {
         println!("{:?}", tokenized_description);
     }
     for i in 1..blurbs.len() - 1 {
@@ -33,7 +35,7 @@ pub fn generate_message<'a>(description: &String, blurbs: &BlurbVec<'a>, company
             .long_description
     ));
 
-    message = message.replace("{COMPANY}", company);
-    message = message.replace("{POSITON}", position);
+    message = message.replace("{COMPANY}", config.company.expect("No company provided"));
+    message = message.replace("{POSITON}", config.position.expect("No position provided"));
     message
 }

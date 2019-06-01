@@ -2,10 +2,10 @@ use std::collections::HashMap;
 use std::io::{stdin, Read};
 
 mod types;
-use crate::types::{KeywordGroup};
+use crate::types::{KeywordGroup, Config};
 
 mod config;
-use crate::config::{BLURBS, KEYWORDS_GROUP_MAP};
+use crate::config::{KEYWORDS_GROUP_MAP};
 
 mod utils;
 use crate::utils::{tokenize};
@@ -28,10 +28,10 @@ use clap::{App, Arg};
 fn calculate_job_score(
     description: &String,
     keywords_groups: &HashMap<&str, KeywordGroup>,
-    debug_flag: bool,
+    config: &Config,
 ) -> i32 {
     let tokenized_description = tokenize(description);
-    if debug_flag {
+    if config.debug {
         println!("{:?}", tokenized_description);
     }
     let mut score = 0;
@@ -52,14 +52,19 @@ fn calculate_job_score(
 // NOTE: cfg is telling it whether to compile or not
 #[cfg(test)]
 mod test {
-    use super::{calculate_job_score, KeywordGroup};
+    use super::{calculate_job_score, KeywordGroup, Config};
 
     #[test]
     fn test_job_score() {
+        let config = Config{
+            debug: false,
+            company: None,
+            position: None,
+        };
         let score = calculate_job_score(
             &"javascripts typescripts".to_owned(),
             &hashmap!["frontend" => KeywordGroup{ score: 5, trigger_tokens: vec!["react"]}],
-            false,
+            &config,
         );
         assert!(
             score == 0,
@@ -68,7 +73,7 @@ mod test {
         let score = calculate_job_score(
             &"javascript typescripts".to_owned(),
             &hashmap!["frontend" => KeywordGroup{ score: 5, trigger_tokens: vec!["javascript", "typescript"]}],
-            false,
+            &config,
         );
         assert!(
             score == 5,
@@ -80,13 +85,13 @@ mod test {
                 "frontend" => KeywordGroup{ score: 3, trigger_tokens: vec!["react"]},
                 "backend" => KeywordGroup{ score: 5, trigger_tokens: vec!["java"]},
             ],
-            false,
+            &config,
         );
         assert!(score == 3, "Score should be 3 since java !== javascript");
         let score = calculate_job_score(
             &"javascripts typescripts".to_owned(),
             &hashmap!["frontend" => KeywordGroup{ score: 5, trigger_tokens: vec!["javascript", "typescript"]}],
-            false,
+            &config,
         );
         assert!(
             score == 0,
@@ -143,12 +148,17 @@ fn main() {
         .read_to_string(&mut description)
         .expect("Could not read from stdin");
 
-    let debug_flag = matches.is_present("debug");
+    let config = Config{
+        debug: matches.is_present("debug"),
+        company: matches.value_of("company"),
+        position: matches.value_of("position")
+    };
+
     if matches.is_present("message") {
-        let message = generate_message(&description, &BLURBS, matches.value_of("company").unwrap(), matches.value_of("position").unwrap(), debug_flag);
+        let message = generate_message(&description, &config);
         println!("{}", message);
     } else if matches.is_present("score") {
-        let score = calculate_job_score(&description, &KEYWORDS_GROUP_MAP, debug_flag);
+        let score = calculate_job_score(&description, &KEYWORDS_GROUP_MAP, &config);
         println!("{}", score);
     } else if matches.is_present("resume") {
         unimplemented!();

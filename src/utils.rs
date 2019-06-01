@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use std::iter::FromIterator;
 
 extern crate regex;
 use regex::Regex;
@@ -17,14 +16,6 @@ pub fn hashset<'a>(data: &Vec<&'a str>) -> HashSet<String> {
         hs.insert((*s).to_owned());
     }
     return hs;
-}
-
-// TODO: Is it possible to extend Vec methods?
-fn contains<T>(v: &Vec<T>, needle: &T) -> bool
-where
-    T: PartialEq,
-{
-    v.iter().fold(false, |acc, item| acc || item == needle)
 }
 
 pub fn tokenize(text: &str) -> HashSet<String> {

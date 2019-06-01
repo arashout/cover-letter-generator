@@ -9,14 +9,14 @@ pub struct KeywordGroup<'a> {
     pub score: i32,
     pub trigger_tokens: Vec<&'a str>,
 }
-#[derive(Debug, Default)]
+#[derive(Default)]
 pub struct Blurb<'a> {
     pub precendence: u8,
     pub long_description: &'a str,
     pub short_description: &'a str,
     pub trigger_tokens: Vec<&'a str>,
     pub name: &'a str,
-    pub rules: Vec<Rule>
+    pub rules: Vec<Box<Rule>>
 }
 
 impl<'a> Blurb<'a> {
@@ -50,7 +50,7 @@ impl<'a> Blurb<'a> {
         self.long_description = description;
         self
     }
-    pub fn add_rule(mut self, rule: Rule){
+    pub fn add_rule(mut self, boxed_rule: Box<Rule>){
         
     }
 
@@ -58,9 +58,8 @@ impl<'a> Blurb<'a> {
 }
 pub type BlurbVec<'a> = Vec<Blurb<'a>>;
 
-// TODO: Use this instead of passing arguments to message
-pub struct Config {
+pub struct Config<'a> {
     pub debug: bool,
-    pub company: Option<String>,
-    pub position: Option<String>
+    pub company: Option<&'a str>,
+    pub position: Option<&'a str>
 }
