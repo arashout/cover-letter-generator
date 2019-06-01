@@ -11,7 +11,7 @@ lazy_static! {
         "dotnet" => KeywordGroup{ score: 4, trigger_tokens: vec!["c#", "net", "dotnet"]},
         "rust" => KeywordGroup{ score: 5, trigger_tokens: vec!["rust"]},
         "golang" => KeywordGroup{ score: 2, trigger_tokens: vec!["golang"]},
-        "microservices" => KeywordGroup{ score: 3, trigger_tokens: vec!["microservices"]},
+        "microservices" => KeywordGroup{ score: 3, trigger_tokens: vec!["microservices", "docker"]},
         "python" => KeywordGroup{ score: 5, trigger_tokens: vec!["python", "flask"]}
         };
         m
