@@ -13,6 +13,8 @@ use crate::utils::{tokenize};
 mod message;
 use crate::message::generate_message;
 
+mod blurb;
+
 mod rules;
 
 // Used in config, utils

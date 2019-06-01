@@ -1,6 +1,7 @@
-use crate::types::{Blurb, Config};
-use crate::utils::{tokenize};
-use crate::config::{get_blurbs};
+use crate::blurb::Blurb;
+use crate::config::get_blurbs;
+use crate::types::Config;
+use crate::utils::tokenize;
 
 pub fn generate_message(description: &String, config: &Config) -> String {
     let blurbs = get_blurbs();
@@ -16,17 +17,17 @@ pub fn generate_message(description: &String, config: &Config) -> String {
     if config.debug {
         println!("{:?}", tokenized_description);
     }
+
     for i in 1..blurbs.len() - 1 {
         let blurb: &Blurb = blurbs
             .get(i)
             .expect(&format!("Expected blurb at index: {}", i));
-        for trigger_token in blurb.trigger_tokens.iter() {
-            if tokenized_description.contains(*trigger_token) {
-                message.push_str(&format!("-{}\n", blurb.long_description));
-                break;
-            }
+
+        if blurb.is_applicable(&tokenized_description) {
+            message.push_str(&format!("-{}\n", blurb.long_description));
         }
     }
+
     message.push_str(&format!(
         "\n{}",
         blurbs

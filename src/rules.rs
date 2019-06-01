@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 use crate::types::TokenizedDescription;
 
 pub type Rule = Fn(&TokenizedDescription) -> bool;
