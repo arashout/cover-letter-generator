@@ -1,0 +1,22 @@
+
+*City of available openings (Boston, Beijing, and/or Shenzhen) may differ due to project needs at the time. Please let our HR know your location preference when applying. Thank you.
+
+Responsibilities 
+
+•	Work closely with IT engineer team and research scientists in building models to predicate the properties of drug-like modules and implement algorithms. 
+•	Develop and train machine learning models for the prediction based on the results from molecular force field and quantum chemistry 
+•	Develop and test software, algorithms, and platforms
+
+Qualifications
+
+•	Masters or Ph.D. with a computation chemistry background 
+•	Experience with training machine learning models (classification, regression, clustering, recommendation system) and algorithm implementation 
+•	Excellent programming skills, familiar with at least one programming language (python, C, C++, FORTRAN, Java) 
+•	Good communication & interpersonal skills, team player and be self-motivated 
+•	Good English reading and writing skills
+
+Desirable skills 
+•	Familiar with molecular force field based simulation 
+•	Familiar with theories and protocols of quantum chemistry computation 
+•	Familiar with training tools such as Tensorflow, Caffe, Scikit-learn, etc. 
+•	Experience with theory or experiments in the fields of medicinal chemistry and computational chemistry, publications in related fields
