@@ -35,8 +35,7 @@ pub fn generate_message(description: &String, config: &Config) -> String {
             .expect("Expected outro blurb")
             .long_description
     ));
-
     message = message.replace("{COMPANY}", config.company.expect("No company provided"));
-    message = message.replace("{POSITON}", config.position.expect("No position provided"));
+    message = message.replace("{POSITION}", config.position.expect("No position provided"));
     message
 }

@@ -64,7 +64,7 @@ mod test {
             position: None,
         };
         let score = calculate_job_score(
-            &"javascripts typescripts".to_owned(),
+            &"javascripts typescript".to_owned(),
             &hashmap!["frontend" => KeywordGroup{ score: 5, trigger_tokens: vec!["react"]}],
             &config,
         );
@@ -82,7 +82,7 @@ mod test {
             "Score should be 5 since atleast one of the tokens from same keygroup found"
         );
         let score = calculate_job_score(
-            &"javascripts typescripts react".to_owned(),
+            &"javascripts typescript react".to_owned(),
             &hashmap![
                 "frontend" => KeywordGroup{ score: 3, trigger_tokens: vec!["react"]},
                 "backend" => KeywordGroup{ score: 5, trigger_tokens: vec!["java"]},
@@ -97,7 +97,7 @@ mod test {
         );
         assert!(
             score == 0,
-            "Score should be 0 since no stemming" // TODO: Should i be stemming "javascripts" to "javascript"
+            "Score should be 0 since no stemming"
         );
     }
 }
